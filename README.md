@@ -38,9 +38,23 @@ To install this package, you can use CRAN (the central R package repository) to 
 	devtools::install_github('lvulliard/BioCircos.R', build_vignettes = TRUE))
 
 
+## Compatibility and troubleshooting
+
+Since the visualizations are powered by JavaScript, they are affected by the environment in which they are displayed.  
+If nothing shows up in a shiny application or an Rmarkdown document, try to update your web browser. 
+See the vignettes for examples of BioCircos plots that should be correctly displayed.
+
+### Obseved behavior
+
+* Firefox 55, Chrome 54 and later versions work as expected.
+* Firefox 46, Chrome 53 and past versions do not display the plots at all.
+* Firefox 47 to 54 do not include all features, such as zooming.
+
 ## Tutorial
 
 See the vignettes to learn how to use BioCircos visualizations.
+
+	vignette('BioCircos')
 
 
 ## Original work
@@ -54,6 +68,14 @@ http://bioinfo.ibp.ac.cn/biocircos/
 http://www.ncbi.nlm.nih.gov/pubmed/26819473
 
 Documentation: http://bioinfo.ibp.ac.cn/biocircos/document/index.html
+
+### Modifications
+
+The following features have been added to the original BioCircos.js library, based on version 1.1.2:
+
+* Parameter *snp_value_maxmin_instance* set by *SNPsettings.range* when provided, to allow the use of a pre-defined range of values for the SNP track.
+* Similar parameters added for the range of Histogram/Bar tracks, Line tracks, CNV tracks and Heatmap tracks (for the range to be used for color mapping).
+* Parameter *opacity* added to each elements of SNP and Arc tracks.
 
 
 ## Contact
@@ -69,3 +91,5 @@ This work is described in the following scientific article: BioCircos.js: an Int
 This package relies on several open source projects other R packages, and is made possible thanks to **shiny** and **htmlwidgets**. 
 
 The package **heatmaply** was used as a model for this vignette, as well as for the **htmlwidgets** configuration.
+
+[![](https://cranlogs.r-pkg.org/badges/BioCircos)](https://cran.r-project.org/package=BioCircos)

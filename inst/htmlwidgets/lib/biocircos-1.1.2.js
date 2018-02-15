@@ -1276,6 +1276,7 @@ var BioCircos;
                   arc_color: v.color,
                   arc_des: v.des,
                   arc_link: v.link,
+                  arc_opacity: v.opacity,
                   arc_click_label: "arc"+arci+"_"+i,
                 };
               });
@@ -1299,7 +1300,8 @@ var BioCircos;
                 .append("path")
                 .attr("class", "BioCircosARC")
                 .attr("fill", function(d,i) { return d.arc_color; })
-                .attr("d", function(d,i) { return arc(d,i); });
+                .attr("d", function(d,i) { return arc(d,i); })
+                .attr("opacity", function(d,i){ return d.arc_opacity; });
                 if(self.settings.ARCMouseClickTextFromData=="first"){
                     svg.append("g")
                         .attr("class", "BioCircosARClabel")
@@ -1493,7 +1495,7 @@ var BioCircos;
                   histogram_end: v.end,
                   histogram_name: v.name,
                   histogram_link: v.link,
-                  histogram_value: v.value,
+                  histogram_value: v.value
                 };
               });
             }
@@ -1501,7 +1503,15 @@ var BioCircos;
             self.update_HISTOGRAMsettings(self.HISTOGRAMConfig[histogrami]);
 
             var histogram_objects = BioCircosHISTOGRAM(chord.groups())
-
+            
+            if(self.HISTOGRAMsettings.range){
+              var histogram_value_maxmin_instance = self.HISTOGRAMsettings.range;
+              histogram_value_maxmin_instance.reverse();
+            }
+            else{
+              var histogram_value_maxmin_instance = self.histogram_value_maxmin(self.HISTOGRAM[histogrami]);
+            }
+            
             svg.append("g")
                 .attr("class", "BioCircosHISTOGRAM")
                 .selectAll("path.BioCircosHISTOGRAM")
@@ -1512,7 +1522,7 @@ var BioCircos;
                 .append("path")
                 .attr("class", "BioCircosHISTOGRAM")
                 .attr("fill", self.HISTOGRAMsettings.histogramFillColor)
-                .attr("d", d3.svg.arc().innerRadius(self.HISTOGRAMsettings.minRadius).outerRadius(function(d) {return self.HISTOGRAMsettings.minRadius + ((d.histogram_value-self.histogram_value_maxmin(self.HISTOGRAM[histogrami])[1])*(self.HISTOGRAMsettings.maxRadius-self.HISTOGRAMsettings.minRadius)/(self.histogram_value_maxmin(self.HISTOGRAM[histogrami])[0]-self.histogram_value_maxmin(self.HISTOGRAM[histogrami])[1]));}));
+                .attr("d", d3.svg.arc().innerRadius(self.HISTOGRAMsettings.minRadius).outerRadius(function(d) {return self.HISTOGRAMsettings.minRadius + ((d.histogram_value-histogram_value_maxmin_instance[1])*(self.HISTOGRAMsettings.maxRadius-self.HISTOGRAMsettings.minRadius)/( histogram_value_maxmin_instance[0] - histogram_value_maxmin_instance[1]));}));
             self.init_HISTOGRAMsettings();
 
         }
@@ -1780,6 +1790,13 @@ var BioCircos;
             function BioCircosCnv(d) {
               return self.CNV[cnvi].map(function(v, i) {
                 var cnv_k = (d[self.initGenome[v.chr]].endAngle - d[self.initGenome[v.chr]].startAngle) / d[self.initGenome[v.chr]].value;
+                // Check if a range is given
+                if(self.CNVsettings.range){
+                  var cnv_value_maxmin_instance = self.CNVsettings.range;
+                }
+                else{
+                  var cnv_value_maxmin_instance = self.cnv_value_maxmin(self.CNV[cnvi]);
+                }
                 return {
                   startAngle: v.start * cnv_k + d[self.initGenome[v.chr]].startAngle,
                   endAngle: v.end * cnv_k + d[self.initGenome[v.chr]].startAngle,
@@ -1789,7 +1806,7 @@ var BioCircos;
                   cnv_val: v.value,
                   cnv_link: v.link,
                   cnv_click_label: "cnv"+cnvi+"_"+i,
-                  cnv_deviation: (v.value-self.cnv_value_maxmin(self.CNV[cnvi])[1])/(self.cnv_value_maxmin(self.CNV[cnvi])[0]-self.cnv_value_maxmin(self.CNV[cnvi])[1])*(self.CNVsettings.maxRadius-self.CNVsettings.minRadius)
+                  cnv_deviation: (v.value-cnv_value_maxmin_instance[1])/(cnv_value_maxmin_instance[0]-cnv_value_maxmin_instance[1])*(self.CNVsettings.maxRadius-self.CNVsettings.minRadius)
 
                 };
               });
@@ -2015,6 +2032,14 @@ var BioCircos;
             var HeatmapMinColor = d3.rgb(self.HEATMAPsettings.minColor);
             var HeatmapValue2Color = d3.interpolate(HeatmapMinColor,HeatmapMaxColor);
 
+            if(self.HEATMAPsettings.range){
+              var heatmap_value_maxmin_instance = self.HEATMAPsettings.range;
+              heatmap_value_maxmin_instance.reverse();
+            }
+            else{
+              var heatmap_value_maxmin_instance = self.heatmap_value_maxmin(self.HEATMAP[heatmapi]);
+            }
+
             var heatmap = d3.svg.arc().innerRadius(innerRadius+self.HEATMAPsettings.innerRadius).outerRadius(outerRadius+self.HEATMAPsettings.outerRadius);
             svg.append("g")
                 .attr("class", "BioCircosHEATMAP")
@@ -2023,7 +2048,7 @@ var BioCircos;
                   .enter()
                 .append("path")
                 .attr("class", "BioCircosHEATMAP")
-                .attr("fill", function(d,i) { return HeatmapValue2Color((d.heatmap_value - self.heatmap_value_maxmin(self.HEATMAP[heatmapi])[1])/(self.heatmap_value_maxmin(self.HEATMAP[heatmapi])[0]-self.heatmap_value_maxmin(self.HEATMAP[heatmapi])[1])); })
+                .attr("fill", function(d,i) { return HeatmapValue2Color((d.heatmap_value - heatmap_value_maxmin_instance[1])/(heatmap_value_maxmin_instance[0]-heatmap_value_maxmin_instance[1])); })
                 .attr("d", function(d,i) { return heatmap(d,i); });
             self.init_HEATMAPsettings();
 
@@ -2561,7 +2586,6 @@ var BioCircos;
                 var snp_k = (d[self.initGenome[v.chr]].endAngle - d[self.initGenome[v.chr]].startAngle) / d[self.initGenome[v.chr]].value;
                 // Check if a range is given
                 if(self.SNPsettings.range){
-                  console.log(self.SNPsettings)
                   var snp_value_maxmin_instance = self.SNPsettings.range;
                 }
                 else{
@@ -2575,6 +2599,7 @@ var BioCircos;
                   snp_des: v.des,
                   snp_color: v.color,
                   snp_link: v.link,
+                  snp_opacity: v.opacity,
                   snp_click_label: "snp"+snpi+"_"+i,
                   x: (0 + Math.sin(v.pos * snp_k + d[self.initGenome[v.chr]].startAngle) * (self.SNPsettings.minRadius + ( (v.value-snp_value_maxmin_instance[1])/(snp_value_maxmin_instance[0]-snp_value_maxmin_instance[1])*(self.SNPsettings.maxRadius-self.SNPsettings.minRadius) ))),  //snp_value_maxmin_instance[0] max
                   y: (0 - Math.cos(v.pos * snp_k + d[self.initGenome[v.chr]].startAngle) * (self.SNPsettings.minRadius + ( (v.value-snp_value_maxmin_instance[1])/(snp_value_maxmin_instance[0]-snp_value_maxmin_instance[1])*(self.SNPsettings.maxRadius-self.SNPsettings.minRadius) )))
@@ -2600,7 +2625,8 @@ var BioCircos;
                     .attr("fill", function(d,i) { if(d.snp_color!=undefined){return d.snp_color;}else{return self.SNPsettings.SNPFillColor;} })
                     .attr("r", self.SNPsettings.circleSize)
                     .attr("cx", function(d) { return d.x; })
-                    .attr("cy", function(d) { return d.y; });
+                    .attr("cy", function(d) { return d.y; })
+                    .attr("opacity", function(d,i) { return d.snp_opacity; });
                }
               if(self.SNPsettings.SNPAnimationDisplay==true){
                 svg.append("g")
@@ -2614,6 +2640,7 @@ var BioCircos;
                     .attr("id", "BioCircosSNP")
                     .attr("fill", function(d,i) { if(d.snp_color!=undefined){return d.snp_color;}else{return self.SNPsettings.SNPFillColor;} })
                     .attr("r", self.SNPsettings.circleSize)
+                    .attr("opacity", function(d,i) { return d.snp_opacity; })
 		    .attr("cx",function(d){
 			    return 0;
 		    })
@@ -2707,6 +2734,7 @@ var BioCircos;
                     .attr("width", self.SNPsettings.rectWidth)
                     .attr("height", self.SNPsettings.rectHeight)
                     //.attr("fill", self.SNPsettings.SNPFillColor);
+                    .attr("opacity", function(d,i) { return d.snp_opacity; })
                     .attr("fill", function(d,i) { if(d.snp_color!=undefined){return d.snp_color;}else{return self.SNPsettings.SNPFillColor;} });
             }
 
