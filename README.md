@@ -11,7 +11,7 @@ For a complete list of all the parameters available, please refer to the package
 
 ## Motivation
 
-The amount of data produced nowadays in a lot of different fields assesses the relevance of reactive analyses and interactive display of the results. This especially true in biology, where the cost of sequencing data has dropped must faster than the Moore's law prediction. New ways of integrating different level of information and accelerating the interpretation are therefore needed.
+The amount of data produced nowadays in a lot of different fields assesses the relevance of reactive analyses and interactive display of the results. This is especially true in biology, where the cost of sequencing data has dropped must faster than the Moore's law prediction. New ways of integrating different levels of information and accelerating the interpretation are therefore needed.
 
 The integration challenge appears to be of major importance, as it allows a deeper understanding of the biological phenomena happening, that cannot be observed in the single analyses independently.  
 
@@ -41,8 +41,11 @@ To install this package, you can use CRAN (the central R package repository) to 
 ## Compatibility and troubleshooting
 
 Since the visualizations are powered by JavaScript, they are affected by the environment in which they are displayed.  
-If nothing shows up in a shiny application or an Rmarkdown document, try to update your web browser. 
+
+* If nothing shows up in the Rstudio viewer pane, try displaying the plot you generated in your browser instead. You can export the figure using the *Save as Web Page...* option in the *Export* tab of the viewer pane.
+* If nothing shows up in a shiny application or an Rmarkdown document, try to update your web browser. 
 See the vignettes for examples of BioCircos plots that should be correctly displayed.
+* Rotation of labels using the *genomeLabelOrientation* parameter leads to a slight offset of the text when displayed in Firefox because some recent CSS options are not yet implemented.
 
 ### Obseved behavior
 
@@ -76,6 +79,7 @@ The following features have been added to the original BioCircos.js library, bas
 * Parameter *snp_value_maxmin_instance* set by *SNPsettings.range* when provided, to allow the use of a pre-defined range of values for the SNP track.
 * Similar parameters added for the range of Histogram/Bar tracks, Line tracks, CNV tracks and Heatmap tracks (for the range to be used for color mapping).
 * Parameter *opacity* added to each elements of SNP and Arc tracks.
+* Changes were made in order to allow rotation of genome labels with the new parameter *genomeLabelOrientation* and the radial offset *dy* is now directly integrated in the label translation.
 
 
 ## Contact
@@ -92,4 +96,6 @@ This package relies on several open source projects other R packages, and is mad
 
 The package **heatmaply** was used as a model for this vignette, as well as for the **htmlwidgets** configuration.
 
-[![](https://cranlogs.r-pkg.org/badges/BioCircos)](https://cran.r-project.org/package=BioCircos)
+[![](https://cranlogs.r-pkg.org/badges/BioCircos)](https://cran.r-project.org/package=BioCircos) [![DOI](https://zenodo.org/badge/112120164.svg)](https://zenodo.org/badge/latestdoi/112120164)
+
+

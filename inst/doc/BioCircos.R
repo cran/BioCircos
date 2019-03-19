@@ -1,7 +1,7 @@
-## ----eval=FALSE----------------------------------------------------------
+## ----eval=FALSE, screenshot.force = FALSE--------------------------------
 #  install.packages('BioCircos')
 
-## ----eval=FALSE----------------------------------------------------------
+## ----eval=FALSE, screenshot.force = FALSE--------------------------------
 #  # You need devtools for that
 #  if (!require('devtools')){install.packages('devtools')}
 #  
@@ -12,13 +12,13 @@ library(BioCircos)
 
 BioCircos()
 
-## ------------------------------------------------------------------------
+## ---- screenshot.force = FALSE-------------------------------------------
 library(BioCircos)
 
 BioCircos(genome = "hg19", yChr = FALSE, genomeFillColor = "Reds", chrPad = 0, 
   displayGenomeBorder = FALSE, genomeTicksDisplay = FALSE, genomeLabelDy = 0)
 
-## ------------------------------------------------------------------------
+## ---- screenshot.force = FALSE-------------------------------------------
 library(BioCircos)
 
 myGenome = list("A" = 10560,
@@ -31,7 +31,7 @@ myGenome = list("A" = 10560,
 BioCircos(genome = myGenome, genomeFillColor = c("tomato2", "darkblue"),
   genomeTicksScale = 4e+3)
 
-## ------------------------------------------------------------------------
+## ---- screenshot.force = FALSE-------------------------------------------
 library(BioCircos)
 
 tracklist = BioCircosTextTrack('myTextTrack', 'Some text', size = "2em", opacity = 0.5, 
@@ -42,7 +42,7 @@ BioCircos(tracklist, genomeFillColor = "PuOr",
   genomeTicksLen = 2, genomeTicksTextSize = 0, genomeTicksScale = 1e+8,
   genomeLabelTextSize = "9pt", genomeLabelDy = 0)
 
-## ------------------------------------------------------------------------
+## ---- screenshot.force = FALSE-------------------------------------------
 library(BioCircos)
 
 tracklist = BioCircosBackgroundTrack("myBackgroundTrack", minRadius = 0.5, maxRadius = 0.8,
@@ -52,7 +52,7 @@ BioCircos(tracklist, genomeFillColor = "PuOr",
   chrPad = 0.05, displayGenomeBorder = FALSE, 
   genomeTicksDisplay = FALSE,  genomeLabelTextSize = "9pt", genomeLabelDy = 0)
 
-## ------------------------------------------------------------------------
+## ---- screenshot.force = FALSE-------------------------------------------
 library(BioCircos)
 
 # Chromosomes on which the points should be displayed
@@ -75,7 +75,7 @@ BioCircos(tracklist, genomeFillColor = "PuOr",
   chrPad = 0.05, displayGenomeBorder = FALSE, yChr =  FALSE,
   genomeTicksDisplay = FALSE,  genomeLabelTextSize = 18, genomeLabelDy = 0)
 
-## ------------------------------------------------------------------------
+## ---- screenshot.force = FALSE-------------------------------------------
 library(BioCircos)
 
 arcs_chromosomes = c('X', 'X', '2', '9') # Chromosomes on which the arcs should be displayed
@@ -89,7 +89,7 @@ BioCircos(tracklist, genomeFillColor = "PuOr",
   chrPad = 0.02, displayGenomeBorder = FALSE, yChr =  FALSE,
   genomeTicksDisplay = FALSE,  genomeLabelTextSize = 0)
 
-## ------------------------------------------------------------------------
+## ---- screenshot.force = FALSE-------------------------------------------
 library(BioCircos)
 
 links_chromosomes_1 = c('X', '2', '9') # Chromosomes on which the links should start
@@ -110,7 +110,7 @@ BioCircos(tracklist, genomeFillColor = "PuOr",
   chrPad = 0.02, displayGenomeBorder = FALSE, yChr =  FALSE,
   genomeTicksDisplay = FALSE,  genomeLabelTextSize = "8pt", genomeLabelDy = 0)
 
-## ----figBarTrack, fig.width=4, fig.height=4, fig.align = 'center'--------
+## ----figBarTrack, fig.width=4, fig.height=4, fig.align = 'center', screenshot.force = FALSE----
 library(BioCircos)
 library(RColorBrewer)
 library(grDevices)
@@ -139,7 +139,7 @@ tracks = tracks + BioCircosBackgroundTrack("bars_background", colors = "#2222EE"
 BioCircos(tracks, genomeFillColor = "YlOrBr", genome = as.list(lengthChr), 
   genomeTicksDisplay = F, genomeLabelDy = 0)
 
-## ----figCNVTrack---------------------------------------------------------
+## ----figCNVTrack, screenshot.force = FALSE-------------------------------
 library(BioCircos)
 
 # Arcs coordinates
@@ -159,7 +159,7 @@ tracks = tracks + BioCircosBackgroundTrack("arcs_background", colors = "#2222EE"
 
 BioCircos(tracks, genomeFillColor = "YlOrBr", genomeTicksDisplay = F, genomeLabelDy = 0)
 
-## ------------------------------------------------------------------------
+## ---- screenshot.force = FALSE-------------------------------------------
 library(BioCircos)
 
 # Define a custom genome
@@ -183,7 +183,7 @@ tracks = tracks + BioCircosHeatmapTrack("heatmap1", boxChromosomes, boxPositions
 BioCircos(tracks, genome = as.list(lengthChr), genomeTicksDisplay = F, genomeLabelDy = 0, 
   HEATMAPMouseOverColor = "#F3C73A")
 
-## ------------------------------------------------------------------------
+## ---- screenshot.force = FALSE-------------------------------------------
 chrVert =  rep(c(1, 3, 5), c(20,10,5))
 posVert = c(249250621*log(c(20:1, 10:1, 5:1), base = 20))
 
@@ -195,7 +195,7 @@ tracks = tracks + BioCircosBackgroundTrack('Bg', fillColors = '#FFEEBB', borderS
 BioCircos(tracks, chrPad = 0.05, displayGenomeBorder = FALSE, LINEMouseOutDisplay = FALSE, 
   LINEMouseOverTooltipsHtml01 = "Pretty lines<br/>This tooltip won't go away!")
 
-## ------------------------------------------------------------------------
+## ---- screenshot.force = FALSE-------------------------------------------
 library(BioCircos)
 
 # Create a tracklist with a text annotation and backgrounds
@@ -205,7 +205,7 @@ tracklist = tracklist + BioCircosBackgroundTrack('b1')
 # Remove the text annotation and display the result
 BioCircos(tracklist - 't1')
 
-## ----figMultiTrack, fig.width=5, fig.height=5, fig.align = 'center'------
+## ----figMultiTrack, fig.width=5, fig.height=5, fig.align = 'center', screenshot.force = FALSE----
 library(BioCircos)
 
 # Fix random generation for reproducibility
@@ -261,6 +261,6 @@ BioCircos(tracks, genomeFillColor = "Spectral", yChr = T, chrPad = 0, displayGen
   genomeTicksLen = 3, genomeTicksTextSize = 0, genomeTicksScale = 50000000,
   genomeLabelTextSize = 18, genomeLabelDy = 0)
 
-## ----sessionINFO---------------------------------------------------------
+## ----sessionINFO, screenshot.force = FALSE-------------------------------
 sessionInfo()
 

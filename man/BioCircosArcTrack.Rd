@@ -4,8 +4,9 @@
 \alias{BioCircosArcTrack}
 \title{Create a track with arcs to be added to a BioCircos tracklist}
 \usage{
-BioCircosArcTrack(trackname, chromosomes, starts, ends, colors = "#40B9D4",
-  labels = "", opacities = 1, maxRadius = 0.9, minRadius = 0.5, ...)
+BioCircosArcTrack(trackname, chromosomes, starts, ends,
+  colors = "#40B9D4", labels = "", opacities = 1, maxRadius = 0.9,
+  minRadius = 0.5, ...)
 }
 \arguments{
 \item{trackname}{The name of the new track.}

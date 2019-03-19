@@ -5,8 +5,8 @@
 \title{Create a heatmap track to be added to a BioCircos tracklist}
 \usage{
 BioCircosHeatmapTrack(trackname, chromosomes, starts, ends, values,
-  labels = "", maxRadius = 0.9, minRadius = 0.5, color = c("#40B9D4",
-  "#F8B100"), range = 0, ...)
+  labels = "", maxRadius = 0.9, minRadius = 0.5,
+  color = c("#40B9D4", "#F8B100"), range = 0, ...)
 }
 \arguments{
 \item{trackname}{The name of the new track.}

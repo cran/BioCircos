@@ -4,8 +4,9 @@
 \alias{BioCircosBarTrack}
 \title{Create a track with a bar plot to be added to a BioCircos tracklist}
 \usage{
-BioCircosBarTrack(trackname, chromosomes, starts, ends, values, labels = "",
-  maxRadius = 0.9, minRadius = 0.5, color = "#40B9D4", range = 0, ...)
+BioCircosBarTrack(trackname, chromosomes, starts, ends, values,
+  labels = "", maxRadius = 0.9, minRadius = 0.5, color = "#40B9D4",
+  range = 0, ...)
 }
 \arguments{
 \item{trackname}{The name of the new track.}
